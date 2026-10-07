@@ -70,9 +70,9 @@
   "preferences": [
     {
       "name": "glossaryFile",
-      "title": "Glossary Location",
-      "description": "Legacy location used until you activate a file with Select Glossary File. Existing folders use glossary.yaml; retained YAML file paths stay direct.",
-      "type": "directory",
+      "title": "Glossary File",
+      "description": "Select a .yaml or .yml glossary file. Used until you activate a file with Select Glossary File.",
+      "type": "file",
       "required": false
     }
   ],

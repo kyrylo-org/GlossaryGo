@@ -19,11 +19,12 @@ overwrites the selected file. Only its activated path is kept in Raycast's local
 validation previews, and drafts are never persisted there. Selection sends nothing over the network.
 
 This replaces **Create Glossary File**. To create a glossary, make a YAML file with `terms: []` in your editor and select
-it. With no activated file, existing installations keep their **Glossary Location** preference: a folder resolves to
-its `glossary.yaml`, and a retained direct `.yaml` or `.yml` path stays direct. Without either a selection or preference,
-commands use `glossary.yaml` in Raycast's extension support directory. The first valid Add Term or Quick Add Term can
-create that missing file. Only default storage may create its support directory; custom parent folders must exist.
-Once a file is activated, it takes precedence over the legacy preference. Use **Select Glossary File** to switch files.
+it. The **Glossary File** preference selects an existing `.yaml` or `.yml` file for use until you activate a file with
+**Select Glossary File**. Existing installations with a saved folder value remain compatible: the folder resolves to its
+`glossary.yaml`, and a retained direct YAML file path stays direct. Without an activated file or preference, commands use
+`glossary.yaml` in Raycast's extension support directory. The first valid Add Term or Quick Add Term can create that
+missing file. Only default storage may create its support directory; custom parent folders must exist. Once a file is
+activated, it takes precedence over the preference. Use **Select Glossary File** to switch files.
 A missing or invalid active file produces recovery instead of silently falling back to another glossary.
 
 macOS only. Existing files must be readable, contain one YAML document, and not exceed 5 MiB. Writes require a writable
