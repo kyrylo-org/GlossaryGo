@@ -248,3 +248,22 @@ content on the clipboard; Reveal opens the effective target in Finder.
   `.yml` file with exactly one filesystem link.
 - **Delete fails:** Resolve external edits; retry refreshed result. No writes to symbolic links, multiply hard-linked
   files, or stale selections.
+
+## Development source-size check
+
+Install dependencies with `bun install` after cloning. The `prepare` script installs the repository's plain Git
+pre-commit hook, and `bun run prepare` reinstalls it if needed. The installer preserves any existing repository
+pre-commit hook and leaves `core.hooksPath` unchanged. It shares the dispatcher across linked worktrees and selects the
+hook from the checkout being committed. A custom `core.hooksPath` must dispatch to the common Git directory's
+`hooks/pre-commit`; the existing global agent hook does this. Other custom hook managers must invoke
+`sh .githooks/pre-commit` themselves.
+
+Run `bun run check:files` to audit tracked source files. The hook checks staged source against an **8,000-token
+(32,000-byte)** budget using pinned GitHub Linguist language data. New oversized files fail; existing oversized files
+may stay the same size or shrink, but cannot grow. Split files by concept and commit the split separately, preserving
+behavior. Global or personal hooks can impose a stricter limit independently.
+
+Generated or vendored source belongs in `.gitattributes` with `linguist-generated` or `linguist-vendored` attributes.
+When a file genuinely cannot be split coherently, put `@ratchet-files-ignore` in a comment within its first ten lines,
+followed by the reason. This exempts it from the hook even if it grows, so reserve it for indivisible concepts;
+`check:files` still reports oversized exempt files. No files currently need exclusions or opt-outs.
